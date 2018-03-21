@@ -36,7 +36,7 @@ public class LoadingActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-
+            //aaa
     }
 
 
