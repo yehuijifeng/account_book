@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#1fb7f5</color>
+    <color name="transparent">#00000000</color>
+    <color name="account_item_hour_color">#c7c7c7</color>
+    <color name="account_item_text_color">#696969</color>
+    <color name="account_item_tips_color">#999999</color>
+
+</resources>

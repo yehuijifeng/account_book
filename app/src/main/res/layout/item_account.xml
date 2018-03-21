@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <import type="com.lh.accountbook.bean.account.AccountInfoBean" />
+
+        <variable
+            name="accountinfo"
+            type="AccountInfoBean" />
+
+        <variable
+            name="onItemUpdateClickListener"
+            type="com.lh.accountbook.adapter.AccountAdapter.OnItemUpdateClickListener" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/account_item_layout_padding">
+
+        <ImageView
+            android:id="@+id/img_bianji"
+            android:layout_width="@dimen/account_item_update_icon_width"
+            android:layout_height="@dimen/account_item_update_icon_width"
+            android:onClick="@{onItemUpdateClickListener.bianji}"
+            android:src="@drawable/ic_account_item_bianji" />
+
+        <LinearLayout
+            android:id="@+id/ly_add_money"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:visibility="@{accountinfo.out? 0x00000004 : 0x00000000}"
+            android:gravity="right|center_vertical"
+            android:orientation="vertical">
+
+            <com.lh.accountbook.view.base.AlwaysMarqueeTextView
+                android:id="@+id/text_add_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|right"
+                android:padding="@dimen/account_item_text_padding"
+                android:text="@{accountinfo.money + accountinfo.accountType}"
+                android:textColor="@color/account_item_text_color"
+                android:textSize="@dimen/account_item_text_size" />
+
+            <com.lh.accountbook.view.base.AlwaysMarqueeTextView
+                android:id="@+id/text_add_tips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|right"
+                android:padding="@dimen/account_item_tips_padding"
+                android:text="@{accountinfo.tips}"
+                android:textColor="@color/account_item_tips_color"
+                android:textSize="@dimen/account_item_tips_size"
+                android:visibility="@{accountinfo.tips==null? 0x00000008 : 0x00000000}" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/img_icon"
+            android:layout_width="@dimen/account_item_type_icon_width"
+            android:layout_height="@dimen/account_item_type_icon_width"
+            android:onClick="@{onItemUpdateClickListener.showUpdate}" />
+
+        <LinearLayout
+            android:id="@+id/ly_remove_money"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:visibility="@{accountinfo.out? 0x00000000 : 0x00000004}"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <com.lh.accountbook.view.base.AlwaysMarqueeTextView
+                android:id="@+id/text_remove_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="@dimen/account_item_text_padding"
+                android:text="@{accountinfo.accountType + accountinfo.money}"
+                android:textColor="@color/account_item_text_color"
+                android:textSize="@dimen/account_item_text_size" />
+
+            <com.lh.accountbook.view.base.AlwaysMarqueeTextView
+                android:id="@+id/text_remove_tips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="@dimen/account_item_tips_padding"
+                android:text="@{accountinfo.tips}"
+                android:visibility="@{accountinfo.tips==null? 0x00000008 : 0x00000000}"
+                android:textColor="@color/account_item_tips_color"
+                android:textSize="@dimen/account_item_tips_size" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/img_shanchu"
+            android:layout_width="@dimen/account_item_update_icon_width"
+            android:layout_height="@dimen/account_item_update_icon_width"
+            android:onClick="@{onItemUpdateClickListener.shanchu}"
+            android:src="@drawable/ic_account_item_shanchu" />
+    </LinearLayout>
+</layout>

@@ -1,0 +1,9 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <item name="ic_menu_money" type="drawable">@drawable/ic_drawer_money</item>
+    <item name="ic_menu_table" type="drawable">@drawable/ic_drawer_table</item>
+    <item name="ic_menu_qushi" type="drawable">@drawable/ic_drawer_qushi</item>
+    <item name="ic_menu_daochu" type="drawable">@drawable/ic_drawer_daochu</item>
+    <item name="ic_menu_guanyu" type="drawable">@drawable/ic_drawer_guanyu</item>
+    <item name="ic_menu_share" type="drawable">@drawable/ic_drawer_share</item>
+    <item name="ic_menu_setting" type="drawable">@drawable/ic_drawer_setting</item>
+</resources>
