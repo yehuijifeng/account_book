@@ -1,0 +1,21 @@
+ext {
+    android = [
+            compileSdkVersion: 24,
+            buildToolsVersion: "27.0.1",
+            minSdkVersion    : 11,
+            targetSdkVersion : 27,
+            versionCode      : 1,
+            versionName      : "admin",
+            versionNameSuffix : "_account_V1.0.0"
+    ]
+
+    dependencies = [
+
+            "appcompat-v7"     : 'com.android.support:appcompat-v7:24+',
+            "design"           : 'com.android.support:design:24+',
+            "constraint-layout": 'com.android.support.constraint:constraint-layout:1+',
+            //ormlite数据库
+            "ormlite-android"  : 'com.j256.ormlite:ormlite-android:5.0',
+            "ormlite-core"     : 'com.j256.ormlite:ormlite-core:5.0',
+    ]
+}
