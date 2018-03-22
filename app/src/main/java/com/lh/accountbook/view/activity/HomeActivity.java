@@ -3,7 +3,6 @@ package com.lh.accountbook.view.activity;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -19,15 +18,10 @@ import com.lh.accountbook.R;
 import com.lh.accountbook.adapter.AccountAdapter;
 import com.lh.accountbook.bean.UserInfoBean;
 import com.lh.accountbook.bean.account.AccountBudgetBean;
-import com.lh.accountbook.bean.account.AccountInfoBean;
 import com.lh.accountbook.databinding.ActivityHomeBinding;
-import com.lh.accountbook.utils.DateUtils;
+import com.lh.accountbook.test;
 import com.lh.accountbook.utils.ShareUtils;
 import com.lh.accountbook.utils.ToastUtils;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 public class HomeActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
@@ -75,7 +69,7 @@ public class HomeActivity extends BaseActivity
         activityHomeBinding.setUserinfo(new UserInfoBean());
         activityHomeBinding.appBarHome.setOnAccountClickListener(new OnAccountClickListener());
         activityHomeBinding.appBarHome.rvAccount.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        accountAdapter = new AccountAdapter(getAccountBudgetBean(), getData());
+        accountAdapter = new AccountAdapter(getAccountBudgetBean(), test.getHomeData());
         activityHomeBinding.appBarHome.rvAccount.setAdapter(accountAdapter);
         accountAdapter.notifyDataSetChanged();
         addScrollViewLisenter();
@@ -104,13 +98,14 @@ public class HomeActivity extends BaseActivity
     public class OnAccountClickListener {
 
         public void addAccount(View view) {
-            Snackbar.make(view, "当前时间：" + DateUtils.format(DateUtils.FORMAT_LONG_CN), Snackbar.LENGTH_LONG)
-                    .setAction("添加", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                        }
-                    }).show();
+            startActivity(AccountEditActivity.class);
+//            Snackbar.make(view, "当前时间：" + DateUtils.format(DateUtils.FORMAT_LONG_CN), Snackbar.LENGTH_LONG)
+//                    .setAction("添加", new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//
+//                        }
+//                    }).show();
         }
     }
 
@@ -207,69 +202,7 @@ public class HomeActivity extends BaseActivity
         return new AccountBudgetBean(3000, 15, 0, 1000, 3, 1);
     }
 
-    private List getData() {
-        Random random = new Random();
-        List<AccountInfoBean> list = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            AccountInfoBean accountInfoBean = new AccountInfoBean();
-            accountInfoBean.setTips(i % 2 == 0 ? null : "测试备注数据" + i);
-            accountInfoBean.setAccountType("记账类型" + i);
-            accountInfoBean.setAccountTypeIcon(icons[random.nextInt(47)]);
-            accountInfoBean.setCreateTime(System.currentTimeMillis());
-            accountInfoBean.setMoney((i * 0.34));
-            accountInfoBean.setOut(i % 2 == 0);
-            list.add(accountInfoBean);
-        }
-        return list;
-    }
 
-    private final int[] icons = new int[]{
-            R.drawable.icon_add_1,
-            R.drawable.icon_add_2,
-            R.drawable.icon_add_3,
-            R.drawable.icon_add_4,
-            R.drawable.icon_add_5,
-            R.drawable.icon_add_6,
-            R.drawable.icon_add_7,
-            R.drawable.icon_add_8,
-            R.drawable.icon_add_9,
-            R.drawable.icon_add_10,
-            R.drawable.icon_add_11,
-            R.drawable.icon_add_12,
-            R.drawable.icon_add_13,
-            R.drawable.icon_add_14,
-            R.drawable.icon_add_15,
-            R.drawable.icon_add_16,
-            R.drawable.icon_add_17,
-            R.drawable.icon_add_18,
-            R.drawable.icon_add_19,
-            R.drawable.icon_add_20,
-            R.drawable.icon_add_21,
-            R.drawable.icon_add_22,
-            R.drawable.icon_add_23,
-            R.drawable.icon_add_24,
-            R.drawable.icon_add_25,
-            R.drawable.icon_add_26,
-            R.drawable.icon_add_27,
-            R.drawable.icon_add_28,
-            R.drawable.icon_add_29,
-            R.drawable.icon_add_30,
-            R.drawable.icon_add_31,
-            R.drawable.icon_add_32,
-            R.drawable.icon_add_33,
-            R.drawable.icon_add_34,
-            R.drawable.icon_add_35,
-            R.drawable.icon_add_36,
-            R.drawable.icon_add_37,
-            R.drawable.icon_add_38,
-            R.drawable.icon_add_39,
-            R.drawable.icon_add_40,
-            R.drawable.icon_add_41,
-            R.drawable.icon_add_42,
-            R.drawable.icon_add_43,
-            R.drawable.icon_add_44,
-            R.drawable.icon_add_45,
-            R.drawable.icon_add_46,
-            R.drawable.icon_add_47,
-            R.drawable.icon_add_48,};
 }
+
+

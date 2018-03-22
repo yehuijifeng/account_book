@@ -21,6 +21,9 @@
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>
+
+    <style name="ToolBarPopupTheme" parent="ThemeOverlay.AppCompat.Light" />
+
     <!--activity的默认进入退出动画-->
     <!--新进、旧出；旧进、新出-->
     <style name="FeelyouWindowAnimTheme" parent="@android:style/Animation.Activity">

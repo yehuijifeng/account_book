@@ -20,5 +20,10 @@
     <dimen name="account_item_hander_yusuan_text_size">9sp</dimen>
     <dimen name="account_item_hander_yusuan_number_text_size">14sp</dimen>
     <dimen name="account_hander_item_layout_padding">10dp</dimen>
+    <dimen name="edit_account_money_text_size">22sp</dimen>
+    <dimen name="text_account_money_text_size">18sp</dimen>
+    <dimen name="edit_account_money_layout_padding">5dp</dimen>
+    <dimen name="edit_account_money_tips_size">17sp</dimen>
+    <dimen name="edit_account_money_tips_padding">5dp</dimen>
 
 </resources>

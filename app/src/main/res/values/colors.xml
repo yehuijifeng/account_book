@@ -5,5 +5,7 @@
     <color name="account_item_hour_color">#c7c7c7</color>
     <color name="account_item_text_color">#696969</color>
     <color name="account_item_tips_color">#999999</color>
+    <color name="edit_account_money_text_color">#696969</color>
+    <color name="text_account_money_text_color">#696969</color>
 
 </resources>
