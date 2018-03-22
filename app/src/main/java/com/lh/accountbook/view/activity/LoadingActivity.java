@@ -9,6 +9,7 @@ import android.support.v4.app.ActivityCompat;
 import com.lh.accountbook.R;
 import com.lh.accountbook.appliaction.CrashHandler;
 import com.lh.accountbook.appliaction.PermissionsChecker;
+import com.lh.accountbook.utils.DateUtils;
 
 /**
  * Created by LuHao on 2018/3/21.
@@ -36,7 +37,7 @@ public class LoadingActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-            //aaa
+        DateUtils.getNetWorkTime();
     }
 
 

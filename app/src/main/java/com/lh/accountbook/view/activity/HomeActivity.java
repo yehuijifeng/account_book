@@ -18,8 +18,10 @@ import android.widget.TextView;
 import com.lh.accountbook.R;
 import com.lh.accountbook.adapter.AccountAdapter;
 import com.lh.accountbook.bean.UserInfoBean;
+import com.lh.accountbook.bean.account.AccountBudgetBean;
 import com.lh.accountbook.bean.account.AccountInfoBean;
 import com.lh.accountbook.databinding.ActivityHomeBinding;
+import com.lh.accountbook.utils.DateUtils;
 import com.lh.accountbook.utils.ShareUtils;
 import com.lh.accountbook.utils.ToastUtils;
 
@@ -73,7 +75,7 @@ public class HomeActivity extends BaseActivity
         activityHomeBinding.setUserinfo(new UserInfoBean());
         activityHomeBinding.appBarHome.setOnAccountClickListener(new OnAccountClickListener());
         activityHomeBinding.appBarHome.rvAccount.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        accountAdapter = new AccountAdapter(getData());
+        accountAdapter = new AccountAdapter(getAccountBudgetBean(), getData());
         activityHomeBinding.appBarHome.rvAccount.setAdapter(accountAdapter);
         accountAdapter.notifyDataSetChanged();
         addScrollViewLisenter();
@@ -102,11 +104,11 @@ public class HomeActivity extends BaseActivity
     public class OnAccountClickListener {
 
         public void addAccount(View view) {
-            Snackbar.make(view, "这里有一个添加账单的操作", Snackbar.LENGTH_LONG)
+            Snackbar.make(view, "当前时间：" + DateUtils.format(DateUtils.FORMAT_LONG_CN), Snackbar.LENGTH_LONG)
                     .setAction("添加", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            ToastUtils.INSTANCE.showSuccessToast(HomeActivity.this, "aaa");
+
                         }
                     }).show();
         }
@@ -201,7 +203,11 @@ public class HomeActivity extends BaseActivity
         }
     }
 
-    private List<AccountInfoBean> getData() {
+    private AccountBudgetBean getAccountBudgetBean() {
+        return new AccountBudgetBean(3000, 15, 0, 1000, 3, 1);
+    }
+
+    private List getData() {
         Random random = new Random();
         List<AccountInfoBean> list = new ArrayList<>();
         for (int i = 0; i < 100; i++) {

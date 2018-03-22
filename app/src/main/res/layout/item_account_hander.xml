@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="budgetinfo"
+            type="com.lh.accountbook.bean.account.AccountBudgetBean" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/account_hander_item_layout_padding">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text_add_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{budgetinfo.recordMonth + `月收入`}"
+                android:textColor="@color/account_item_text_color"
+                android:textSize="@dimen/account_item_hander_text_size" />
+
+            <com.lh.accountbook.view.base.AlwaysMarqueeTextView
+                android:id="@+id/text_add_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{`￥`+budgetinfo.monthAddmoney}"
+                android:textColor="@color/account_item_text_color"
+                android:textSize="@dimen/account_item_hander_text_size" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="@color/account_item_text_color">
+
+            <ImageView
+                android:id="@+id/img_remaining_money"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="bottom"
+                android:background="#4F77E6" />
+
+            <ImageView
+                android:id="@+id/img_all_money"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/ic_account_hander" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/text_month_yusuan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="月预算"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/account_item_hander_yusuan_text_size" />
+
+                <com.lh.accountbook.view.base.AlwaysMarqueeTextView
+                    android:id="@+id/text_month_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{` `+(budgetinfo.money+budgetinfo.monthAddmoney-budgetinfo.monthRemovemoney)}"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/account_item_hander_yusuan_number_text_size" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text_remove_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{budgetinfo.recordMonth + `月支出`}"
+                android:textColor="@color/account_item_text_color"
+                android:textSize="@dimen/account_item_hander_text_size" />
+
+            <com.lh.accountbook.view.base.AlwaysMarqueeTextView
+                android:id="@+id/text_remove_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{`￥`+budgetinfo.monthRemovemoney}"
+                android:textColor="@color/account_item_text_color"
+                android:textSize="@dimen/account_item_hander_text_size" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>
