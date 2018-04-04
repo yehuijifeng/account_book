@@ -1,4 +1,4 @@
-package com.lh.accountbook.view.activity;
+package com.lh.accountbook.view.activity.index;
 
 import android.Manifest;
 import android.os.Build;
@@ -7,9 +7,16 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 
 import com.lh.accountbook.R;
+import com.lh.accountbook.appliaction.ABAppliaction;
 import com.lh.accountbook.appliaction.CrashHandler;
 import com.lh.accountbook.appliaction.PermissionsChecker;
+import com.lh.accountbook.bean.UserInfoBean;
+import com.lh.accountbook.constant.AppConstant;
+import com.lh.accountbook.db.UserInfoDao;
 import com.lh.accountbook.utils.DateUtils;
+import com.lh.accountbook.utils.LogUtils;
+import com.lh.accountbook.utils.SharedPreferencesUtils;
+import com.lh.accountbook.view.activity.base.BaseActivity;
 
 /**
  * Created by LuHao on 2018/3/21.
@@ -32,12 +39,13 @@ public class LoadingActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        checkAuthority();
+
     }
 
     @Override
     protected void initData() {
         DateUtils.getNetWorkTime();
+        checkAuthority();
     }
 
 
@@ -62,7 +70,7 @@ public class LoadingActivity extends BaseActivity {
                     startActivity(HomeActivity.class);
                     finish();
                 }
-            }, 1 * 1000);
+            }, 500);
         }
     }
 
@@ -72,6 +80,20 @@ public class LoadingActivity extends BaseActivity {
     private void initAPP() {
         //全局捕获异常的代理类
         CrashHandler.getInstance().init(getApplicationContext());
+        UserInfoDao userInfoDao = new UserInfoDao();
+        SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils();
+        int isOneStartApp = sharedPreferencesUtils.getInt(AppConstant.IS_ONE_START_APP);
+        if (isOneStartApp == 0) {//第一次进入app，初始化
+            UserInfoBean userInfoBean = new UserInfoBean();
+            userInfoBean.setUserId(1000);
+            userInfoBean.setUserName("记账本用户——1");
+            userInfoBean.setUserRegisterTime(DateUtils.getSystemTime());
+            userInfoDao.dao.deleteDataById(ABAppliaction.userId);
+//            userInfoDao.insertUserInfo(userInfoBean);
+            LogUtils.i("用户表创建：" + (userInfoDao.dao.insertData(userInfoBean) == 1 ? "成功" : "失败"));
+        } else {
+            ABAppliaction.INSTANCE.setUserInfo((UserInfoBean) userInfoDao.dao.queryByUserId(ABAppliaction.userId));
+        }
     }
 
     /**

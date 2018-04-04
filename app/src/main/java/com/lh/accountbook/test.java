@@ -79,6 +79,7 @@ public class test {
         return list;
     }
 
+    //app内置所有做账单类型
     public static List<AccountEditTypeBean> getEditAccountData() {
         List<AccountEditTypeBean> list = new ArrayList<>();
         for (int i = 0; i < 47; i++) {
@@ -87,21 +88,22 @@ public class test {
             accountInfoBean.setTypeName("类型" + i);
             list.add(accountInfoBean);
         }
-        for (int i = 0; i < 47; i++) {
-            AccountEditTypeBean accountInfoBean = new AccountEditTypeBean();
-            accountInfoBean.setTypeIcon(icons[i]);
-            accountInfoBean.setTypeName("类型" + i);
-            list.add(accountInfoBean);
-        }
         return list;
     }
 
-    public static List<AccountEditTypeBean> getEditAccountDataTwo() {
+    //用户自己记录的账单类型
+    public static List<AccountEditTypeBean> getUserAccountTypeData() {
         List<AccountEditTypeBean> list = new ArrayList<>();
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < 47; i++) {
             AccountEditTypeBean accountInfoBean = new AccountEditTypeBean();
             accountInfoBean.setTypeIcon(icons[i]);
-            accountInfoBean.setTypeName("类型" + i);
+            accountInfoBean.setTypeName("类型：" + i);
+            list.add(accountInfoBean);
+        }
+        for (int i = 0; i < 47; i++) {
+            AccountEditTypeBean accountInfoBean = new AccountEditTypeBean();
+            accountInfoBean.setTypeIcon(icons[i]);
+            accountInfoBean.setTypeName("账单：" + i);
             list.add(accountInfoBean);
         }
         AccountEditTypeBean accountInfoBean = new AccountEditTypeBean();
@@ -110,5 +112,4 @@ public class test {
         list.add(accountInfoBean);
         return list;
     }
-
 }

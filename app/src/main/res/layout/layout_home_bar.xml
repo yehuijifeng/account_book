@@ -7,36 +7,34 @@
 
         <variable
             name="onAccountClickListener"
-            type="com.lh.accountbook.view.activity.HomeActivity.OnAccountClickListener" />
+            type="com.lh.accountbook.view.activity.index.HomeActivity.OnAccountClickListener" />
     </data>
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.lh.accountbook.view.activity.HomeActivity">
+        tools:context="com.lh.accountbook.view.activity.index.HomeActivity">
 
         <android.support.design.widget.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            style="@style/AppBarLayoutStyle"
+            app:theme="@style/AppBarLayoutTheme">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
+                style="@style/ToolBarPopupStyle"
                 app:layout_scrollFlags="scroll|enterAlways"
                 app:popupTheme="@style/ToolBarPopupTheme" />
 
+            <include
+                android:id="@+id/account_hander"
+                layout="@layout/item_account_hander" />
         </android.support.design.widget.AppBarLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_account"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:descendantFocusability="afterDescendants"
-            android:scrollbars="none" />
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab_add_account"

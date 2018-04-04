@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="@android:color/white"
         android:padding="@dimen/account_hander_item_layout_padding">
 
         <LinearLayout
@@ -39,6 +40,7 @@
         </LinearLayout>
 
         <FrameLayout
+            android:id="@+id/fl_remaining"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:background="@color/account_item_text_color">
@@ -47,11 +49,11 @@
                 android:id="@+id/img_remaining_money"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:adjustViewBounds="true"
                 android:layout_gravity="bottom"
                 android:background="#4F77E6" />
 
             <ImageView
-                android:id="@+id/img_all_money"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/ic_account_hander" />

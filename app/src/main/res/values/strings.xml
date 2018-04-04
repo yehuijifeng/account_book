@@ -3,4 +3,6 @@
     <string name="navigation_drawer_open">打开抽屉</string>
     <string name="navigation_drawer_close">关闭抽屉</string>
     <string name="account_edit_title">账单</string>
+    <string name="account_edit_type_list_title">账单类型</string>
+    <string name="add_account_edit_type_list_title">添加账单类型</string>
 </resources>

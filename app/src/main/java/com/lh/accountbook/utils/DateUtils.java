@@ -46,7 +46,7 @@ public class DateUtils {
         }).start();
     }
 
-    public static long getSysTime() {
+    public static long getSystemTime() {
         if (time_cha == 0) {
             if (network_time == 0) {
                 getNetWorkTime();
@@ -81,7 +81,7 @@ public class DateUtils {
      * @return
      */
     public static String format(String time_str) {
-        return format(new Date(getSysTime()), time_str, Locale.CHINA);
+        return format(new Date(getSystemTime()), time_str, Locale.CHINA);
     }
 
     /**
@@ -110,7 +110,7 @@ public class DateUtils {
      * @return
      */
     public static String getNow() {
-        return format(new Date(getSysTime()), FORMAT_LONG, Locale.CHINA);
+        return format(new Date(getSystemTime()), FORMAT_LONG, Locale.CHINA);
     }
 
 }

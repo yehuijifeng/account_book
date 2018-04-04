@@ -38,16 +38,6 @@ public class ActivityCollector {
     }
 
     /**
-     * 当前app是否在栈顶
-     *
-     * @param activity
-     */
-    public static boolean checkActivityTop(Activity activity) {
-        if (activitiys.size() == 0) return false;
-        return activitiys.get(activitiys.size() - 1) == activity;
-    }
-
-    /**
      * 该操作用于清空当前app栈中所有activity，用于退出程序所用
      */
     public static void finishAll() {
@@ -77,47 +67,6 @@ public class ActivityCollector {
             if (!activity.getComponentName().toString().contains(cla.getName())) {
                 activity.finish();
             }
-        }
-    }
-
-    public static void finishByActivity(Class cla) {
-        for (Activity activity : activitiys) {
-            if (activity.getComponentName().toString().contains(cla.getName())) {
-                activity.finish();
-                return;
-            }
-        }
-    }
-
-    public static boolean isContain(Activity activity) {
-        return activitiys.contains(activity);
-    }
-
-    public static boolean isContain(Class cla) {
-        for (Activity activity : activitiys) {
-            if (activity.getComponentName().toString().contains(cla.getName())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static boolean isTop(Activity activity) {
-        if (activitiys == null || activitiys.size() == 0) return false;
-        return activitiys.get(activitiys.size() - 1).equals(activity);
-    }
-
-    /**
-     * 跳转到栈内
-     *
-     * @param cla
-     */
-    public static void startBackActivity(Class cla) {
-        for (int i = activitiys.size() - 1; i > 0; i--) {
-            if (activitiys.get(i).getComponentName().toString().contains(cla.getName())) {
-                return;
-            }
-            activitiys.get(i).finish();
         }
     }
 

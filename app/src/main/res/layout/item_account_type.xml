@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="accountedittype"
+            type="com.lh.accountbook.bean.account.AccountEditTypeBean" />
+
+        <variable
+            name="click"
+            type="com.lh.accountbook.adapter.AccountTypeListAdapter.OnItemClickListener" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ly_root"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_default_click"
+            android:gravity="center_vertical"
+            android:onClick="@{click.onItemClick}"
+            android:orientation="horizontal"
+            android:padding="7dp">
+
+            <ImageView
+                android:id="@+id/img_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+
+            <com.lh.accountbook.view.base.AlwaysMarqueeTextView
+                android:id="@+id/text_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:maxLines="1"
+                android:padding="5dp"
+                android:text="@{accountedittype.typeName}"
+                android:textColor="#696969"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_more" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.7dp"
+            android:background="#C4C4C4" />
+
+    </LinearLayout>
+</layout>

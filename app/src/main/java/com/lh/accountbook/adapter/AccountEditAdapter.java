@@ -26,7 +26,7 @@ public class AccountEditAdapter extends RecyclerView.Adapter<AccountEditViewHold
         void onItemClick(int position, View view);
     }
 
-    private List<AccountEditTypeBean> data;
+    protected List<AccountEditTypeBean> data;
 
     public AccountEditAdapter(List<AccountEditTypeBean> data, OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
@@ -60,22 +60,21 @@ public class AccountEditAdapter extends RecyclerView.Adapter<AccountEditViewHold
         AccountEditTypeBean accountEditTypeBean = data.get(position);
         itemAccountEditTypeBinding.getRoot().setTag(position);
         itemAccountEditTypeBinding.setAccountedittype(accountEditTypeBean);
+        itemAccountEditTypeBinding.setItemclick(new OnItemViewClickListener(position));
         itemAccountEditTypeBinding.imgIcon.setImageResource(accountEditTypeBean.getTypeIcon());
         itemAccountEditTypeBinding.executePendingBindings();
-        itemAccountEditTypeBinding.getRoot().setOnClickListener(new OnItemViewClickListener(position));
     }
 
     /**
      * item点击事件
      */
-    private class OnItemViewClickListener implements View.OnClickListener {
+    public class OnItemViewClickListener   {
         int position;
 
         OnItemViewClickListener(int position) {
             this.position = position;
         }
 
-        @Override
         public void onClick(View v) {
             if (onItemClickListener != null) onItemClickListener.onItemClick(position, v);
         }

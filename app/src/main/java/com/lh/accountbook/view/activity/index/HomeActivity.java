@@ -1,6 +1,8 @@
-package com.lh.accountbook.view.activity;
+package com.lh.accountbook.view.activity.index;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -8,20 +10,32 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lh.accountbook.R;
 import com.lh.accountbook.adapter.AccountAdapter;
+import com.lh.accountbook.appliaction.ABAppliaction;
+import com.lh.accountbook.appliaction.ActivityCollector;
 import com.lh.accountbook.bean.UserInfoBean;
 import com.lh.accountbook.bean.account.AccountBudgetBean;
+import com.lh.accountbook.bean.account.AccountInfoBean;
+import com.lh.accountbook.constant.BundleConstant;
 import com.lh.accountbook.databinding.ActivityHomeBinding;
+import com.lh.accountbook.service.ResidentOneService;
 import com.lh.accountbook.test;
+import com.lh.accountbook.utils.DateUtils;
 import com.lh.accountbook.utils.ShareUtils;
 import com.lh.accountbook.utils.ToastUtils;
+import com.lh.accountbook.view.activity.acount.AccountEditActivity;
+import com.lh.accountbook.view.activity.base.BaseActivity;
+
+import java.util.List;
 
 public class HomeActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
@@ -29,6 +43,8 @@ public class HomeActivity extends BaseActivity
 
     private ActivityHomeBinding activityHomeBinding;
     private AccountAdapter accountAdapter;
+    private final int add_account_code = 2018;
+    private List list;
 
     @Override
     protected void setDataBinding() {
@@ -59,22 +75,25 @@ public class HomeActivity extends BaseActivity
         ImageView img_user_icon = (ImageView) headerView.findViewById(R.id.img_user_icon);
         img_user_icon.setImageResource(R.drawable.ic_user_icon);
         TextView text_user_name = (TextView) headerView.findViewById(R.id.text_user_name);
-        text_user_name.setText("记账本-用户1");
-
-
+        text_user_name.setText(ABAppliaction.INSTANCE.getUserInfo().getUserName());
     }
 
     @Override
     protected void initData() {
+        list = test.getHomeData();
         activityHomeBinding.setUserinfo(new UserInfoBean());
         activityHomeBinding.appBarHome.setOnAccountClickListener(new OnAccountClickListener());
         activityHomeBinding.appBarHome.rvAccount.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        accountAdapter = new AccountAdapter(getAccountBudgetBean(), test.getHomeData());
+        accountAdapter = new AccountAdapter(list);
         activityHomeBinding.appBarHome.rvAccount.setAdapter(accountAdapter);
         accountAdapter.notifyDataSetChanged();
         addScrollViewLisenter();
+        getAccountBudgetBean();
     }
 
+    /**
+     * recyclerviwe的滑动监听
+     */
     private void addScrollViewLisenter() {
         activityHomeBinding.appBarHome.rvAccount.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -98,14 +117,22 @@ public class HomeActivity extends BaseActivity
     public class OnAccountClickListener {
 
         public void addAccount(View view) {
-            startActivity(AccountEditActivity.class);
-//            Snackbar.make(view, "当前时间：" + DateUtils.format(DateUtils.FORMAT_LONG_CN), Snackbar.LENGTH_LONG)
-//                    .setAction("添加", new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//
-//                        }
-//                    }).show();
+            startActivityForResult(AccountEditActivity.class, add_account_code);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            if (requestCode == add_account_code) {
+                if (data != null) {
+                    AccountInfoBean accountInfoBean = data.getParcelableExtra(BundleConstant.AccountInfoBean);
+                    if (accountInfoBean != null) {
+                        list.add(0, accountInfoBean);
+                        accountAdapter.notifyDataSetChanged();
+                    }
+                }
+            }
         }
     }
 
@@ -185,6 +212,8 @@ public class HomeActivity extends BaseActivity
         return true;
     }
 
+    private long exitTime;
+
     /**
      * 监听返回按键
      */
@@ -194,15 +223,49 @@ public class HomeActivity extends BaseActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+            if ((DateUtils.getSystemTime() - exitTime) > 2000) {
+                ToastUtils.INSTANCE.showShortToast(this, "再按一次退出应用");
+                exitTime = DateUtils.getSystemTime();
+            } else {
+                ToastUtils.INSTANCE.cancelToast();
+                Intent intent = new Intent(this, ResidentOneService.class);
+                startService(intent);
+                ActivityCollector.finishAll();
+            }
             super.onBackPressed();
         }
     }
 
-    private AccountBudgetBean getAccountBudgetBean() {
-        return new AccountBudgetBean(3000, 15, 0, 1000, 3, 1);
+    private void getAccountBudgetBean() {
+        final AccountBudgetBean accountBudgetBean = new AccountBudgetBean(3000, 15, 0, 1000, 3, 1);
+        activityHomeBinding.appBarHome.accountHander.setBudgetinfo(accountBudgetBean);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                int fl_height = activityHomeBinding.appBarHome.accountHander.flRemaining.getHeight();
+                ImageView iv = activityHomeBinding.appBarHome.accountHander.imgRemainingMoney;
+                FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) iv.getLayoutParams();
+                double bottomMargin = fl_height *accountBudgetBean.getMonthRemovemoney() / accountBudgetBean.getMoney();
+                layoutParams.height = (int) bottomMargin;
+                iv.setLayoutParams(layoutParams);
+            }
+        }, 200);
     }
 
-
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if ((DateUtils.getSystemTime() - exitTime) > 2000) {
+                ToastUtils.INSTANCE.showShortToast(this, "再按一次退出应用");
+                exitTime = DateUtils.getSystemTime();
+            } else {
+                ToastUtils.INSTANCE.cancelToast();
+                ActivityCollector.finishAll();
+            }
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }
 
 

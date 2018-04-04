@@ -84,4 +84,5 @@ dependencies {
     compile rootProject.ext.dependencies["constraint-layout"]
     compile rootProject.ext.dependencies["ormlite-android"]
     compile rootProject.ext.dependencies["ormlite-core"]
+    compile rootProject.ext.dependencies["multidex"]
 }

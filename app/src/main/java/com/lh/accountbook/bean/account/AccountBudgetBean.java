@@ -16,7 +16,7 @@ public class AccountBudgetBean {
     @DatabaseField
     private int closeTime;//结算日。1-28号。默认0，0为月末
     private double monthAddmoney;//月收入
-    private double monthRemovemoney;//月收入
+    private double monthRemovemoney;//月支出
     private int recordMonth;//当前预算记录月份，若月份变更，则收入计算清零
     private int userId;
     public AccountBudgetBean(){}

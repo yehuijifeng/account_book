@@ -8,10 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lh.accountbook.R;
-import com.lh.accountbook.bean.account.AccountBudgetBean;
 import com.lh.accountbook.bean.account.AccountInfoBean;
 import com.lh.accountbook.databinding.ItemAccountBinding;
-import com.lh.accountbook.databinding.ItemAccountHanderBinding;
 import com.lh.accountbook.viewholder.AccountViewHolder;
 
 import java.util.ArrayList;
@@ -23,13 +21,12 @@ import java.util.List;
  */
 
 public class AccountAdapter extends RecyclerView.Adapter<AccountViewHolder> {
-    private List<Object> data;
+    private List<AccountInfoBean> data;
 
-    public AccountAdapter(AccountBudgetBean accountBudgetBean, List<Object> data) {
+    public AccountAdapter(List<AccountInfoBean> data) {
         if (data == null) {
             data = new ArrayList<>();
         }
-        data.add(0, accountBudgetBean);
         this.data = data;
     }
 
@@ -44,17 +41,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountViewHolder> {
     }
 
     @Override
-    public int getItemViewType(int position) {
-        if (position == 0) return 1;
-        return super.getItemViewType(position);
-    }
-
-    @Override
     public AccountViewHolder onCreateViewHolder(ViewGroup paernt, int viewType) {
-        if (viewType == 1) {
-            ItemAccountHanderBinding itemAccountHanderBinding = DataBindingUtil.inflate(LayoutInflater.from(paernt.getContext()), R.layout.item_account_hander, paernt, false);
-            return new AccountViewHolder(itemAccountHanderBinding);
-        }
         ItemAccountBinding itemAccountBinding = DataBindingUtil.inflate(LayoutInflater.from(paernt.getContext()), R.layout.item_account, paernt, false);
         return new AccountViewHolder(itemAccountBinding);
     }
@@ -62,22 +49,15 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountViewHolder> {
 
     @Override
     public void onBindViewHolder(AccountViewHolder holder, int position) {
-        if (position == 0) {
-            ItemAccountHanderBinding itemAccountHanderBinding = holder.itemAccountHanderBinding;
-            AccountBudgetBean accountBudgetBean = (AccountBudgetBean) data.get(position);
-            itemAccountHanderBinding.setBudgetinfo(accountBudgetBean);
-            itemAccountHanderBinding.executePendingBindings();
-        } else {
-            ItemAccountBinding itemAccountBinding = holder.itemAccountBinding;
-            AccountInfoBean accountInfoBean = (AccountInfoBean) data.get(position);
-            itemAccountBinding.getRoot().setTag(position);
-            itemAccountBinding.setAccountinfo(accountInfoBean);
-            itemAccountBinding.setOnItemUpdateClickListener(new OnItemUpdateClickListener(position, accountInfoBean, itemAccountBinding));
-            itemAccountBinding.imgBianji.setVisibility(View.GONE);
-            itemAccountBinding.imgShanchu.setVisibility(View.GONE);
-            itemAccountBinding.imgIcon.setImageResource(accountInfoBean.getAccountTypeIcon());
-            itemAccountBinding.executePendingBindings();
-        }
+        ItemAccountBinding itemAccountBinding = holder.itemAccountBinding;
+        AccountInfoBean accountInfoBean = data.get(position);
+        itemAccountBinding.getRoot().setTag(position);
+        itemAccountBinding.setAccountinfo(accountInfoBean);
+        itemAccountBinding.setOnItemUpdateClickListener(new OnItemUpdateClickListener(position, accountInfoBean, itemAccountBinding));
+        itemAccountBinding.imgBianji.setVisibility(View.GONE);
+        itemAccountBinding.imgShanchu.setVisibility(View.GONE);
+        itemAccountBinding.imgIcon.setImageResource(accountInfoBean.getAccountTypeIcon());
+        itemAccountBinding.executePendingBindings();
     }
 
     /**
